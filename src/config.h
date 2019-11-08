@@ -1,0 +1,3 @@
+#ifndef LABPARTICLE_CONFIG_H
+#define LABPARTICLE_CONFIG_H
+#endif
