@@ -6,18 +6,19 @@
 #define LABVFX_EMITTER_H
 
 #include "Imath/ImathMatrix.h"
-#include "Imath/ImathRandom.h"
+#include "LabVfx/Random.h"
 
 namespace lab { namespace vfx {
 
 class Effect;
+class Random;
 
 class Emitter {
 public:
     Emitter();
     void emit(float t, float dt, Effect* system);
     
-    static void emitOnPlane(float* xyzResult, const Imath::Matrix44<float>& transform, Imath::Rand32&);
+    static void emitOnPlane(float* xyzResult, const Imath::Matrix44<float>& transform, Random&);
     
     void setEmitsPerSec(float eps) { _emitsPerSec = eps; }
     void setBudget(int budget) { _budget = budget; }
@@ -27,10 +28,10 @@ public:
     void Restart();
 
 private:
-    Imath::Rand32 _rand;
+    Random _rand;
     Imath::Matrix44<float> _globalTransform;
     Imath::Matrix44<float> _invGlobalTransform;
-    void (*_emitterFunc)(float*, const Imath::Matrix44<float>&, Imath::Rand32&);
+    void (*_emitterFunc)(float*, const Imath::Matrix44<float>&, Random&);
     float _emitsPerSec;
     float _residual;
     int _emitted;

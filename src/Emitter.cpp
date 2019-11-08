@@ -14,13 +14,14 @@ Emitter::Emitter()
 , _emitsPerSec(20)
 , _residual(0)
 , _emitted(0)
-, _budget(INT_MAX) { }
+, _budget(INT_MAX)
+, _rand(0) { }
 
 void Emitter::Restart()
 {
     _emitted = 0;
     _residual = 0;
-    _rand.init(0);
+    _rand.set_seed(0);
 }
 
 void Emitter::emit(float t, float dt, Effect* system) 
@@ -65,7 +66,7 @@ void Emitter::emit(float t, float dt, Effect* system)
 }
 
 // static
-void Emitter::emitOnPlane(float* xyzResult, const Imath::Matrix44<float>& transform, Imath::Rand32& rnd) 
+void Emitter::emitOnPlane(float* xyzResult, const Imath::Matrix44<float>& transform, Random& rnd) 
 {
     Imath::Vec4<float> p { rnd.nextf(-0.5f, 0.5f), 0, rnd.nextf(-0.5f, 0.5f), 1 };
     p = p * transform;

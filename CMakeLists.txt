@@ -26,9 +26,11 @@ lab_library(LabVfx
         include/LabVfx/LabVfx.h
         include/LabVfx/DataStripes.h
         include/LabVfx/Effect.h
+        include/LabVfx/Emitter.h
         include/LabVfx/Integrator.h
         include/LabVfx/LifetimeRules.h
         include/LabVfx/Looks.h
+        include/LabVfx/Random.h
 
     PRIVATE_HEADERS
         src/config.h
@@ -51,10 +53,11 @@ else()
     target_compile_definitions(LabVfx PUBLIC PLATFORM_LINUX=1)
 endif()
 
-
 configure_file(cmake/LabVfxConfig.cmake.in
   "${PROJECT_BINARY_DIR}/LabVfxConfig.cmake" @ONLY)
 install(FILES
   "${PROJECT_BINARY_DIR}/LabVfxConfig.cmake"
   DESTINATION "${CMAKE_INSTALL_PREFIX}"
 )
+
+add_library(Lab::Vfx ALIAS LabVfx)

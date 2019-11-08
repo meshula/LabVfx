@@ -17,10 +17,10 @@ class DataStripe
 public:
     enum Kind { kUInt32_1, kFloat32_1, kFloat32_2, kFloat32_3, kFloat32_4 };
     
-    DataStripe(Kind k, uint32_t c, const char* name);
+    DataStripe(Kind k, size_t c, const char* name);
     ~DataStripe();
     
-    void resize(uint32_t c);
+    void resize(size_t c);
     
     template<typename T>
     inline
@@ -65,7 +65,7 @@ private:
     
     Kind _kind;
     Kind _elKind;
-    uint32_t _size;
+    size_t _size;
     void* _data;
 };
 
@@ -126,7 +126,8 @@ public:
     
     void retireAll() {
         _firstFree = 0;
-        for (size_t i = 0; i < _redirect.size(); ++i)
+        int c = static_cast<int>(_redirect.size());
+        for (int i = 0; i < c; ++i)
             _redirect[i] = i;
     }
     

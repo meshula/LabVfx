@@ -347,8 +347,8 @@ solidSphereRand (Rand &rand)
 
     do
     {
-	for (unsigned int i = 0; i < Vec::dimensions(); i++)
-	    v[i] = (typename Vec::BaseType) rand.nextf (-1, 1);
+        for (unsigned int i = 0; i < Vec::dimensions(); i++)
+            v[i] = (typename Vec::BaseType) rand.nextf (-1, 1);
     }
     while (v.length2() > 1);
 

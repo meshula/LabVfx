@@ -12,7 +12,7 @@
 
 namespace lab { namespace vfx {
 
-DataStripe::DataStripe(Kind k, uint32_t c, const char* name) : _kind(k), _data(0), _name(name) {
+DataStripe::DataStripe(Kind k, size_t c, const char* name) : _kind(k), _data(0), _name(name) {
     switch (_kind) {
         case kUInt32_1:  _elKind = kUInt32_1;  break;
         case kFloat32_1: _elKind = kFloat32_1; break;
@@ -27,9 +27,9 @@ DataStripe::~DataStripe() {
     free(_data);
 }
 
-void DataStripe::resize(uint32_t c) {
+void DataStripe::resize(size_t c) {
     if (_size != c) {
-        _size =c ;
+        _size = c;
         free(_data);
         switch (_kind) {
             case kUInt32_1:  _data = malloc(sizeof(uint32_t) * 1 * c); break;

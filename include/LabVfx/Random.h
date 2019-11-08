@@ -18,7 +18,7 @@ public:
         const int m = 2147483647;
         
         _seed = (_seed * a + c) & m;
-        int64_t ret = m_seed % 0x7fff;
+        int64_t ret = _seed % 0x7fff;
 
         return (float)ret / (float) (0x7fff - 1);
     }
@@ -32,3 +32,5 @@ public:
 
 
 }}
+
+#endif
