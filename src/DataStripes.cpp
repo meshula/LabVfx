@@ -2,7 +2,7 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#include "LabParticle/DataStripes.h"
+#include "LabVfx/DataStripes.h"
 
 #include <string>
 #include <vector>
@@ -10,7 +10,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
 
 DataStripe::DataStripe(Kind k, uint32_t c, const char* name) : _kind(k), _data(0), _name(name) {
     switch (_kind) {

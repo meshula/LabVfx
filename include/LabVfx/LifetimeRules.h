@@ -2,10 +2,10 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#ifndef LABPARTICLE_LIFETIMERULES_H
-#define LABPARTICLE_LIFETIMERULES_H
+#ifndef LABVFX_LIFETIMERULES_H
+#define LABVFX_LIFETIMERULES_H
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
 
 class DataStripe;
 

@@ -2,12 +2,12 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#include "LabParticle/Emitter.h"
-#include "LabParticle/Effect.h"
+#include "LabVfx/Emitter.h"
+#include "LabVfx/Effect.h"
 
 #include <math.h>
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
 
 Emitter::Emitter()
 : _emitterFunc(&emitOnPlane)

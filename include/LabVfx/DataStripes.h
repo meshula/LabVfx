@@ -2,15 +2,15 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#ifndef LABPARTICLE_DATASTRIPES_H
-#define LABPARTICLE_DATASTRIPES_H
+#ifndef LABVFX_DATASTRIPES_H
+#define LABVFX_DATASTRIPES_H
 
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
 
 class DataStripe
 {

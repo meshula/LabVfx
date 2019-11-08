@@ -2,11 +2,11 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#include "LabParticle/Integrator.h"
-#include "LabParticle/DataStripes.h"
-#include "LabParticle/Effect.h"
+#include "LabVfx/Integrator.h"
+#include "LabVfx/DataStripes.h"
+#include "LabVfx/Effect.h"
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
 
 void Integrator::integrate(float t, float dt, Effect* system) 
 {

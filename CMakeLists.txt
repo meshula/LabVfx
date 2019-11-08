@@ -2,9 +2,9 @@
 include_guard()
 
 cmake_minimum_required (VERSION 3.10)
-project(LabParticle)
+project(LabVfx)
 
-set(LABPARTICLE_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+set(LABVFX_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../LabCMake/scripts
                       ${CMAKE_CURRENT_SOURCE_DIR}/../LabCMake/modules)
@@ -12,7 +12,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../LabCMake/scripts
 include(Settings)
 include(Utilities)
 
-lab_library(LabParticle
+lab_library(LabVfx
     TYPE STATIC
     ALIAS Lab::Particle
 
@@ -23,12 +23,12 @@ lab_library(LabParticle
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 
     PUBLIC_HEADERS
-        include/LabParticle/LabParticle.h
-        include/LabParticle/DataStripes.h
-        include/LabParticle/Effect.h
-        include/LabParticle/Integrator.h
-        include/LabParticle/LifetimeRules.h
-        include/LabParticle/Looks.h
+        include/LabVfx/LabVfx.h
+        include/LabVfx/DataStripes.h
+        include/LabVfx/Effect.h
+        include/LabVfx/Integrator.h
+        include/LabVfx/LifetimeRules.h
+        include/LabVfx/Looks.h
 
     PRIVATE_HEADERS
         src/config.h
@@ -44,17 +44,17 @@ lab_library(LabParticle
 )
 
 IF(WIN32)
-    target_compile_definitions(LabParticle PUBLIC PLATFORM_WINDOWS=1)
+    target_compile_definitions(LabVfx PUBLIC PLATFORM_WINDOWS=1)
 elseif(APPLE)
-    target_compile_definitions(LabParticle PUBLIC PLATFORM_MACOS=1)
+    target_compile_definitions(LabVfx PUBLIC PLATFORM_MACOS=1)
 else()
-    target_compile_definitions(LabParticle PUBLIC PLATFORM_LINUX=1)
+    target_compile_definitions(LabVfx PUBLIC PLATFORM_LINUX=1)
 endif()
 
 
-configure_file(cmake/LabParticleConfig.cmake.in
-  "${PROJECT_BINARY_DIR}/LabParticleConfig.cmake" @ONLY)
+configure_file(cmake/LabVfxConfig.cmake.in
+  "${PROJECT_BINARY_DIR}/LabVfxConfig.cmake" @ONLY)
 install(FILES
-  "${PROJECT_BINARY_DIR}/LabParticleConfig.cmake"
+  "${PROJECT_BINARY_DIR}/LabVfxConfig.cmake"
   DESTINATION "${CMAKE_INSTALL_PREFIX}"
 )

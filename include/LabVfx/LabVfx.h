@@ -1,6 +1,6 @@
 
-#ifndef LABPARTICLE_H
-#define LABPARTICLE_H
+#ifndef LABVFX_H
+#define LABVFX_H
 
 #include "DataStripes.h"
 #include "Effect.h"

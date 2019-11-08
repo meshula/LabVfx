@@ -2,13 +2,13 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#ifndef LABPARTICLE_EMITTER_H
-#define LABPARTICLE_EMITTER_H
+#ifndef LABVFX_EMITTER_H
+#define LABVFX_EMITTER_H
 
 #include "Imath/ImathMatrix.h"
 #include "Imath/ImathRandom.h"
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
 
 class Effect;
 

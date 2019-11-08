@@ -2,8 +2,8 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#ifndef LABPARTICLE_INTEGRATOR_H
-#define LABPARTICLE_INTEGRATOR_H
+#ifndef LABVFX_INTEGRATOR_H
+#define LABVFX_INTEGRATOR_H
 
 #include "Imath/ImathMatrix.h"
 #include "Imath/ImathVec.h"
@@ -11,7 +11,7 @@
 #include <memory>
 #include <vector>
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
 
 class Effect;
 

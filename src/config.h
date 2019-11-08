@@ -1,3 +1,3 @@
-#ifndef LABPARTICLE_CONFIG_H
-#define LABPARTICLE_CONFIG_H
+#ifndef LABVFX_CONFIG_H
+#define LABVFX_CONFIG_H
 #endif

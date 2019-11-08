@@ -1,5 +1,5 @@
-#ifndef LABPARTICLE_EFFECT_H
-#define LABPARTICLE_EFFECT_H
+#ifndef LABVFX_EFFECT_H
+#define LABVFX_EFFECT_H
 
 #include "DataStripes.h"
 #include <memory>
@@ -17,7 +17,7 @@ of their owning Effect.
 
  */
 
-namespace lab { namespace particle
+namespace lab { namespace vfx
 {
     class Bucket;
     class Emitter;

@@ -2,10 +2,10 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#include "LabParticle/LifetimeRules.h"
-#include "LabParticle/DataStripes.h"
+#include "LabVfx/LifetimeRules.h"
+#include "LabVfx/DataStripes.h"
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
 
 bool AgeRule::expire(float local_time, int i) const
 {

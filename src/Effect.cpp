@@ -1,11 +1,11 @@
 
-#include "LabParticle/Effect.h"
-#include "LabParticle/Emitter.h"
-#include "LabParticle/Integrator.h"
-#include "LabParticle/LifetimeRules.h"
-#include "LabParticle/Looks.h"
+#include "LabVfx/Effect.h"
+#include "LabVfx/Emitter.h"
+#include "LabVfx/Integrator.h"
+#include "LabVfx/LifetimeRules.h"
+#include "LabVfx/Looks.h"
 
-namespace lab { namespace particle {
+namespace lab { namespace vfx {
     
     Effect::~Effect()
     {
