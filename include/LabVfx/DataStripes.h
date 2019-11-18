@@ -21,6 +21,7 @@ public:
     ~DataStripe();
     
     void resize(size_t c);
+    size_t size() const { return _size; }
     
     template<typename T>
     inline
@@ -30,6 +31,12 @@ public:
         if (k != _kind)
             return 0;
         
+        return reinterpret_cast<T*>(_data);
+    }
+    
+    template<typename T>
+    inline
+    T* data() const {
         return reinterpret_cast<T*>(_data);
     }
     
@@ -72,8 +79,7 @@ private:
 class DataStripes
 {
 public:
-    DataStripes() : _firstFree(0), _size(0) {
-    }
+    DataStripes() : _firstFree(0) { }
     ~DataStripes() { }
     
     void expire(const std::vector<int>& indices, int count) {
@@ -89,8 +95,6 @@ public:
             _redirect[_firstFree] = _redirect[index];
             _redirect[index] = temp;
         }
-        // officially expire the swapped indices
-        _size -= count;
     }
     
     void resize(size_t capacity) {
@@ -139,13 +143,13 @@ public:
         return std::shared_ptr<DataStripe>();
     }
     
-    void setActiveCount(size_t s) { _size = s; }
-    size_t activeCount() const { return _size; }
     const std::vector<int>& redirect() const { return _redirect; }
     
+    size_t activeCount() const { return _firstFree; }
+    void setActiveCount(size_t activeCount) { _firstFree = activeCount; }
+
 private:
     size_t _firstFree;
-    size_t _size;
     std::vector<int> _redirect;
     std::map<std::string, std::shared_ptr<DataStripe>> _stripes;
 };

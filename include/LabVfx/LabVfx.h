@@ -4,6 +4,12 @@
 
 #include "DataStripes.h"
 #include "Effect.h"
+#include "Emitter.h"
+#include "Field.h"
+#include "Integrator.h"
 #include "LifetimeRules.h"
+#include "Looks.h"
+#include "Operators.h"
+#include "Random.h"
 
 #endif

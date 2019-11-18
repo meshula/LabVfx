@@ -21,9 +21,11 @@ namespace lab { namespace vfx
 {
     class Bucket;
     class Emitter;
+    class Field;
     class Integrator;
     class LifetimeRule;
     class Look;
+    class Operator;
 
     enum EffectRenderStyle
     {
@@ -64,16 +66,14 @@ namespace lab { namespace vfx
     public:
         virtual ~Effect();
 
-        virtual void Init();
         void Restart();
-        void Simulate(float dt);
 
         void update(float t, float dt);
         void respawn(const std::vector<int>& respawns, int count) { }
         
-        const DataStripes& dataStripes() const { return _dataStripes; }
-        DataStripes& dataStripes() { return _dataStripes; }
+        std::shared_ptr<DataStripes> dataStripes() const { return _dataStripes; }
         
+        void addOperator(std::shared_ptr<Operator> f) { _operators.push_back(f); }
         void addEmitter(std::shared_ptr<Emitter> e) { _emitters.push_back(e); }
         void addIntegrator(std::shared_ptr<Integrator> i) { _integrators.push_back(i); }
         void addLifetimeRule(std::shared_ptr<LifetimeRule> r) { _lifeTimeRules.push_back(r); }
@@ -81,7 +81,8 @@ namespace lab { namespace vfx
         void addLook(std::shared_ptr<Look> l) { _looks.push_back(l); }
     
 private:
-        DataStripes _dataStripes;
+        std::shared_ptr<DataStripes>               _dataStripes;
+        std::vector<std::shared_ptr<Operator>>     _operators;
         std::vector<std::shared_ptr<Emitter>>      _emitters;
         std::vector<std::shared_ptr<Integrator>>   _integrators;
         std::vector<std::shared_ptr<LifetimeRule>> _lifeTimeRules;

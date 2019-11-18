@@ -12,24 +12,51 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../LabCMake/scripts
 include(Settings)
 include(Utilities)
 
-lab_library(LabVfx
+lab_library(LabImath
     TYPE STATIC
-    ALIAS Lab::Particle
-
-    LIBRARIES
+    ALIAS Lab::Imath
 
     INCLUDE_DIRS
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+
+    PUBLIC_HEADERS
+        include/LabImath/IlmBaseConfig.h
+        include/LabImath/ImathErrors.h
+        include/LabImath/ImathExport.h
+        include/LabImath/ImathFun.h
+        include/LabImath/ImathLimits.h
+        include/LabImath/ImathMatrix.h
+        include/LabImath/ImathNamespace.h
+        include/LabImath/ImathPlatform.h
+        include/LabImath/ImathShear.h
+        include/LabImath/ImathVec.h
+
+    CPPFILES
+        include/LabImath/ImathFun.cpp
+)
+
+lab_library(LabVfx
+    TYPE STATIC
+    ALIAS Lab::Vfx
+
+    LIBRARIES
+        Lab::Imath
+
+    INCLUDE_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 
     PUBLIC_HEADERS
         include/LabVfx/LabVfx.h
         include/LabVfx/DataStripes.h
         include/LabVfx/Effect.h
         include/LabVfx/Emitter.h
+        include/LabVfx/Field.h
         include/LabVfx/Integrator.h
         include/LabVfx/LifetimeRules.h
         include/LabVfx/Looks.h
+        include/LabVfx/Operators.h
         include/LabVfx/Random.h
 
     PRIVATE_HEADERS
@@ -43,6 +70,7 @@ lab_library(LabVfx
         src/Integrator.cpp
         src/LifetimeRules.cpp
         src/Looks.cpp
+        src/Operators.cpp
 )
 
 IF(WIN32)
@@ -60,4 +88,4 @@ install(FILES
   DESTINATION "${CMAKE_INSTALL_PREFIX}"
 )
 
-add_library(Lab::Vfx ALIAS LabVfx)
+#add_library(Lab::Vfx ALIAS LabVfx)

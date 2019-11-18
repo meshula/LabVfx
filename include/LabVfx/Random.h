@@ -3,29 +3,60 @@
 
 namespace lab { namespace vfx {
 
+// xorshift from
+// https://github.com/AndreasMadsen/xorshift/blob/master/reference.c
+// MIT license
+
 class Random
 {
-    int64_t _seed;
+    /* The state must be seeded so that it is not everywhere zero. */
+    uint64_t s[ 2 ];
+
+    uint64_t xorshift128plus_int(void) {
+        uint64_t s1 = s[0];
+        const uint64_t s0 = s[1];
+        const uint64_t result = s0 + s1;
+        s[0] = s0;
+        s1 ^= s1 << 23; // a
+        s[1] = s1 ^ s0 ^ (s1 >> 18) ^ (s0 >> 5); // b, c
+        return result;
+    }
+
+    double xorshift128plus_double(void) {
+        const uint64_t x = xorshift128plus_int();
+        const uint64_t x_doublefied = UINT64_C(0x3FF) << 52 | x >> 12;
+        return *((double *) &x_doublefied) - 1.0;
+    }
+
+    float xorshift128plus_float(void) {
+        const uint64_t x = xorshift128plus_int();
+        const uint32_t x_floatified = 0xFFu << 23 | (x & 0xffffffff) >> 9;
+        return *((float *) & x_floatified) - 1.f;
+    }
 
 public:
-    explicit Random(int64_t seed) : _seed(seed) {}
-    void set_seed(int64_t seed) { _seed = seed; }
+
+    explicit Random(int64_t seed) { s[0] = seed; s[1] = seed >> 32; }
+    void set_seed(int64_t seed) { s[0] = seed; s[1] = seed >> 32; }
 
     float nextf()
     {
-        const int a = 1103515245;
-        const int c = 12345;
-        const int m = 2147483647;
-        
-        _seed = (_seed * a + c) & m;
-        int64_t ret = _seed % 0x7fff;
-
-        return (float)ret / (float) (0x7fff - 1);
+        return xorshift128plus_float();
     }
 
     float nextf(float min_, float max_)
     {
         return nextf() * (max_ - min_) + min_;
+    }
+
+    double nextd()
+    {
+        return xorshift128plus_double();
+    }
+
+    double nextd(double min_, double max_)
+    {
+        return nextd() * (max_ - min_) + min_;
     }
 
 };

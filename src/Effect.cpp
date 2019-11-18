@@ -4,6 +4,7 @@
 #include "LabVfx/Integrator.h"
 #include "LabVfx/LifetimeRules.h"
 #include "LabVfx/Looks.h"
+#include "LabVfx/Operators.h"
 
 namespace lab { namespace vfx {
     
@@ -20,14 +21,19 @@ namespace lab { namespace vfx {
 
     void Effect::update(float t, float dt)
     {
+        _current_time += dt;
+
         // run lifetime rules
         int respawn = 0;
-        int c = _dataStripes.redirect().size();
+        size_t c = _dataStripes->redirect().size();
         _workArray.resize(c);
         
         for (auto emitter : _emitters)
           emitter->emit(t, dt, this);
-        
+
+        for (auto op : _operators)
+            op->update(t, dt);
+
         for (auto integrator : _integrators)
             integrator->integrate(t, dt, this);
         
@@ -41,7 +47,7 @@ namespace lab { namespace vfx {
             for (auto r : _respawns)
                 r->respawn(_workArray, respawn);
             
-            _dataStripes.expire(_workArray, respawn);
+            _dataStripes->expire(_workArray, respawn);
         }
 
         // apply looks to particles that survived the cull

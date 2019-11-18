@@ -111,7 +111,7 @@ predf (float f)
 double
 succd (double d)
 {
-    union {double d; Int64 i;} u;
+    union {double d; int64_t i;} u;
     u.d = d;
 
     if ((u.i & 0x7ff0000000000000LL) == 0x7ff0000000000000LL)
@@ -146,7 +146,7 @@ succd (double d)
 double
 predd (double d)
 {
-    union {double d; Int64 i;} u;
+    union {double d; int64_t i;} u;
     u.d = d;
 
     if ((u.i & 0x7ff0000000000000LL) == 0x7ff0000000000000LL)

@@ -1,6 +1,6 @@
 
 // CurlNoise
 
-#include "Imath/ImathVec.h"
+#include "LabImath/ImathVec.h"
 
 

@@ -5,7 +5,7 @@
 #ifndef LABVFX_EMITTER_H
 #define LABVFX_EMITTER_H
 
-#include "Imath/ImathMatrix.h"
+#include "LabImath/ImathMatrix.h"
 #include "LabVfx/Random.h"
 
 namespace lab { namespace vfx {

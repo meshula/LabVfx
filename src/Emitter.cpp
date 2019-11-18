@@ -30,7 +30,7 @@ void Emitter::emit(float t, float dt, Effect* system)
         return;
  
     float genCount = _residual + dt * _emitsPerSec;
-    float avail = system->dataStripes().reserve(static_cast<int>(floorf(genCount)));
+    float avail = static_cast<float>(system->dataStripes()->reserve(static_cast<size_t>(floorf(genCount))));
     if (avail < genCount) {
         _residual = genCount - avail;
         genCount = avail;
@@ -38,16 +38,16 @@ void Emitter::emit(float t, float dt, Effect* system)
     else
         _residual = 0;
     
-    std::shared_ptr<DataStripe> pos = system->dataStripes().get("pos");
-    const std::vector<int>& redirect = system->dataStripes().redirect();
+    std::shared_ptr<DataStripe> pos = system->dataStripes()->get("pos");
+    const std::vector<int>& redirect = system->dataStripes()->redirect();
     float* data = pos->data<float>(DataStripe::kFloat32_3);
     if (!data)
         return;
     
     int stride = pos->stride();
-    int i = system->dataStripes().activeCount();
+    size_t i = system->dataStripes()->activeCount();
     
-    while (genCount >= 1.0f && (_emitted < _budget)) {
+    while (genCount >= 1.0f && (_emitted < _budget))  {
         if (_budget < INT_MAX)
             ++_emitted;
         
@@ -61,7 +61,7 @@ void Emitter::emit(float t, float dt, Effect* system)
         ++i;
     }
     
-    system->dataStripes().setActiveCount(i);
+    system->dataStripes()->setActiveCount(i);
     _residual += genCount;
 }
 
