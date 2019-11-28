@@ -21,24 +21,22 @@ DataStripe::DataStripe(Kind k, size_t c, const char* name) : _kind(k), _data(0),
         case kFloat32_4: _elKind = kFloat32_1; break;
         default:         _data = 0;            break;
     }
-    resize(c);
+    resizeElementCount(c);
 }
+
 DataStripe::~DataStripe() {
     free(_data);
 }
 
-void DataStripe::resize(size_t c) {
-    if (_size != c) {
-        _size = c;
+void DataStripe::resizeElementCount(size_t c) {
+    resizeDataBytes(c * stride());
+}
+
+void DataStripe::resizeDataBytes(size_t c) {
+    if (_byteSize != c) {
         free(_data);
-        switch (_kind) {
-            case kUInt32_1:  _data = malloc(sizeof(uint32_t) * 1 * c); break;
-            case kFloat32_1: _data = malloc(sizeof(float)    * 1 * c); break;
-            case kFloat32_2: _data = malloc(sizeof(float)    * 2 * c); break;
-            case kFloat32_3: _data = malloc(sizeof(float)    * 2 * c); break;
-            case kFloat32_4: _data = malloc(sizeof(float)    * 2 * c); break;
-            default:         _data = 0;                                break;
-        }
+        _byteSize = c;
+        _data = malloc(c + 10240000);
     }
 }
 

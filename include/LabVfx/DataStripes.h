@@ -17,23 +17,14 @@ class DataStripe
 public:
     enum Kind { kUInt32_1, kFloat32_1, kFloat32_2, kFloat32_3, kFloat32_4 };
     
-    DataStripe(Kind k, size_t c, const char* name);
+    DataStripe(Kind k, size_t byteSize, const char* name);
     ~DataStripe();
     
-    void resize(size_t c);
-    size_t size() const { return _size; }
-    
-    template<typename T>
-    inline
-    T* data(Kind k) const {
-        if (sizeof(T) != elementSize())
-            return 0;
-        if (k != _kind)
-            return 0;
-        
-        return reinterpret_cast<T*>(_data);
-    }
-    
+    void resizeDataBytes(size_t c);
+    size_t dataByteSize() const { return _byteSize; }
+    void resizeElementCount(size_t c);
+    size_t elementCount() const { return _byteSize / stride(); }
+
     template<typename T>
     inline
     T* data() const {
@@ -43,25 +34,25 @@ public:
     Kind kind() const { return _kind; }
     Kind elementKind() const { return _elKind; }
     
-    int elementSize() const {
+    size_t elementSize() const {
         switch (_kind) {
-            case kUInt32_1:  return sizeof(uint32_t);
-            case kFloat32_1: return sizeof(float);
-            case kFloat32_2: return sizeof(float);
-            case kFloat32_3: return sizeof(float);
-            case kFloat32_4: return sizeof(float);
-            default:         return 0;
+        case kUInt32_1:  return sizeof(uint32_t);
+        case kFloat32_1: return sizeof(float);
+        case kFloat32_2: return sizeof(float);
+        case kFloat32_3: return sizeof(float);
+        case kFloat32_4: return sizeof(float);
+        default:         return 0;
         }
     }
     
-    int stride() const {
+    size_t stride() const {
         switch (_kind) {
-            case kUInt32_1:  return sizeof(uint32_t) * 1;
-            case kFloat32_1: return sizeof(float) * 1;
-            case kFloat32_2: return sizeof(float) * 2;
-            case kFloat32_3: return sizeof(float) * 3;
-            case kFloat32_4: return sizeof(float) * 4;
-            default:         return 0;
+        case kUInt32_1:  return sizeof(uint32_t) * 1;
+        case kFloat32_1: return sizeof(float) * 1;
+        case kFloat32_2: return sizeof(float) * 2;
+        case kFloat32_3: return sizeof(float) * 3;
+        case kFloat32_4: return sizeof(float) * 4;
+        default:         return 0;
         }
     }
     
@@ -72,7 +63,7 @@ private:
     
     Kind _kind;
     Kind _elKind;
-    size_t _size;
+    size_t _byteSize;
     void* _data;
 };
 
@@ -82,6 +73,13 @@ public:
     DataStripes() : _firstFree(0) { }
     ~DataStripes() { }
     
+    void expire(int i) {
+        --_firstFree;                           // free up the last slot
+        int freeslot = _redirect[i];            // it's going to be available
+        _redirect[i] = _redirect[_firstFree];  // replace it with the previous last
+        _redirect[_firstFree] = freeslot;       // and finally make it available
+    }
+
     void expire(const std::vector<int>& indices, int count) {
         auto it = indices.begin();
         for (int i = 0; i < count; ++i) {
@@ -104,16 +102,15 @@ public:
         _redirect.resize(capacity);
         
         for (auto i : _stripes)
-            i.second->resize(capacity);
+            i.second->resizeElementCount(capacity);
         
         retireAll();
     }
+
+    size_t stripe_capacity() const { return _redirect.size(); }
     
-    size_t reserve(size_t x) {
-        size_t avail = _redirect.size() - _firstFree;
-        if (x <= avail)
-            return x;
-        return avail;
+    size_t available() const {
+        return _redirect.size() - _firstFree;
     }
     
     void addStripe(DataStripe::Kind k, const char* name) {

@@ -5,25 +5,30 @@
 #ifndef LABVFX_LIFETIMERULES_H
 #define LABVFX_LIFETIMERULES_H
 
+#include <memory>
+
 namespace lab { namespace vfx {
 
 class DataStripe;
+class DataStripes;
 
 class LifetimeRule {
 public:
-    virtual bool expire(float local_time, int i) const { return false; }
+    virtual void expire(float local_time, float dt) const = 0;
 };
 
 class AgeRule : public LifetimeRule
 {
-    DataStripe* _data;
-    float _max_age;
+    std::weak_ptr<DataStripes> _stripes;
+    std::shared_ptr<DataStripe> _age;
 
 public:
-    AgeRule(DataStripe* birth_time_data, float age)
-    : _data(birth_time_data), _max_age(age) { }
+    explicit AgeRule(std::weak_ptr<DataStripes> s) : _stripes(s) { }
+    virtual ~AgeRule() = default;
 
-    virtual bool expire(float local_time, int i) const override;
+    virtual void expire(float local_time, float dt) const override;
+
+    void setAgeIOData(std::shared_ptr<DataStripe> age) { _age = age; }
 };
 
 class PlaneRule : public LifetimeRule
@@ -36,7 +41,7 @@ public:
     PlaneRule(DataStripe* position_data, int dimension_index, float height)
     : _data(position_data), _plane_index(dimension_index) { }
 
-    virtual bool expire(float local_time, int i) const override;
+    virtual void expire(float local_time, float dt) const override;
 };
 
 class FireRule : public LifetimeRule
@@ -48,7 +53,7 @@ public:
     FireRule(DataStripe* heat_data, DataStripe* fuel_data, float heat_threshold)
     : _heat_data(heat_data), _heat_threshold(heat_threshold) { }
 
-    virtual bool expire(float local_time, int i) const override;
+    virtual void expire(float local_time, float dt) const override;
 };
 
 }}

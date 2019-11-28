@@ -64,6 +64,7 @@ namespace lab { namespace vfx
         float _current_time = 0;
 
     public:
+        Effect();
         virtual ~Effect();
 
         void Restart();

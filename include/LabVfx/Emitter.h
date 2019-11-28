@@ -34,8 +34,8 @@ private:
     void (*_emitterFunc)(float*, const Imath::Matrix44<float>&, Random&);
     float _emitsPerSec;
     float _residual;
-    int _emitted;
-    int _budget;
+    size_t _emitted;
+    size_t _budget;
 };
 
 }}

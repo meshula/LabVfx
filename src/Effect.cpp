@@ -8,6 +8,11 @@
 
 namespace lab { namespace vfx {
     
+    Effect::Effect()
+    : _dataStripes(std::make_shared<DataStripes>())
+    {
+    }
+
     Effect::~Effect()
     {
     }
@@ -25,22 +30,21 @@ namespace lab { namespace vfx {
 
         // run lifetime rules
         int respawn = 0;
-        size_t c = _dataStripes->redirect().size();
-        _workArray.resize(c);
+        size_t c = _dataStripes->stripe_capacity();
+        _workArray.clear();
+        _workArray.reserve(c);
         
-        for (auto emitter : _emitters)
+        for (auto& emitter : _emitters)
           emitter->emit(t, dt, this);
 
-        for (auto op : _operators)
+        for (auto& op : _operators)
             op->update(t, dt);
 
-        for (auto integrator : _integrators)
+        for (auto& integrator : _integrators)
             integrator->integrate(t, dt, this);
         
-        for (auto life : _lifeTimeRules)
-            for (int i = 0; i < c; ++i)
-                if (life->expire(t, i))
-                    _workArray[respawn++] = i;
+        for (auto& life : _lifeTimeRules)
+            life->expire(t, dt);
         
         if (respawn) {
             // other systems may want to grab the expired particles

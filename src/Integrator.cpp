@@ -21,9 +21,9 @@ void Integrator::integrate(float t, float dt, Effect* system)
 
     int stride = _pos->stride() / sizeof(float);
     int vstride = _vel->stride() / sizeof(float);
-    float* force = _force->data<float>(DataStripe::kFloat32_3);
-    float* pos = _pos->data<float>(DataStripe::kFloat32_3);
-    float* vel = _vel->data<float>(DataStripe::kFloat32_3);
+    float* force = _force->data<float>();
+    float* pos = _pos->data<float>();
+    float* vel = _vel->data<float>();
     const std::vector<int>& redirect = stripes->redirect();
     for (size_t i = 0; i < count; ++i) {
         int index = redirect[i] * 3;
@@ -63,7 +63,7 @@ void VelocityField::update(float t, float dt)
 
     Imath::Vec3<float> dpdt = _direction * _globalTransform;
 
-    float* vel = _vel->data<float>(DataStripe::kFloat32_3);
+    float* vel = _vel->data<float>();
     int stride = _vel->stride() / sizeof(float);
     const std::vector<int>& redirect = stripes->redirect();
     for (size_t i = 0; i < count; ++i) {
@@ -86,8 +86,8 @@ void AccelerationField::update(float t, float dt)
  
     Imath::Vec3<float> dpdt = _direction * _globalTransform;
 
-    float* force = _force_o_data->data<float>(DataStripe::kFloat32_3);
-    int stride = _force_o_data->stride() / sizeof(float);
+    float* force = _force_o_data->data<float>();
+    size_t stride = _force_o_data->stride() / sizeof(float);
     const std::vector<int>& redirect = stripes->redirect();
     for (size_t i = 0; i < count; ++i) {
         int re = redirect[i] * stride;

@@ -30,13 +30,17 @@ class Random
 
     float xorshift128plus_float(void) {
         const uint64_t x = xorshift128plus_int();
-        const uint32_t x_floatified = 0xFFu << 23 | (x & 0xffffffff) >> 9;
+        const uint32_t x_floatified = 0x7Fu << 23 | (x & 0xffffffff) >> 9;
         return *((float *) & x_floatified) - 1.f;
     }
 
 public:
 
-    explicit Random(int64_t seed) { s[0] = seed; s[1] = seed >> 32; }
+    explicit Random(int64_t seed) 
+    {
+        set_seed(seed ? seed : 0x13371337cafebabe); // 0 is illegal so remap it to some value
+    }
+
     void set_seed(int64_t seed) { s[0] = seed; s[1] = seed >> 32; }
 
     float nextf()
