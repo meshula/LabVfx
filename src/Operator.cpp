@@ -1,5 +1,5 @@
 
-#include "LabVfx/Operators.h"
+#include "LabVfx/Operator.h"
 #include "LabVfx/DataStripes.h"
 
 namespace lab { namespace vfx {

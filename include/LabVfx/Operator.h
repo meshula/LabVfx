@@ -1,6 +1,6 @@
 
-#ifndef LABVFX_OPERATORS_H
-#define LABVFX_OPERATORS_H
+#ifndef LABVFX_OPERATOR_H
+#define LABVFX_OPERATOR_H
 
 #include <memory>
 

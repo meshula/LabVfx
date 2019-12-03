@@ -56,7 +56,7 @@ lab_library(LabVfx
         include/LabVfx/Integrator.h
         include/LabVfx/LifetimeRules.h
         include/LabVfx/Looks.h
-        include/LabVfx/Operators.h
+        include/LabVfx/Operator.h
         include/LabVfx/Random.h
 
     PRIVATE_HEADERS
@@ -67,10 +67,11 @@ lab_library(LabVfx
         src/DataStripes.cpp
         src/Effect.cpp
         src/Emitter.cpp
+        src/Field.cpp
         src/Integrator.cpp
         src/LifetimeRules.cpp
         src/Looks.cpp
-        src/Operators.cpp
+        src/Operator.cpp
 )
 
 IF(WIN32)

@@ -4,7 +4,7 @@
 
 #include <LabImath/ImathMatrix.h>
 #include <LabImath/ImathVec.h>
-#include "Operators.h"
+#include "Operator.h"
 
 namespace lab { namespace vfx {
 
@@ -14,7 +14,7 @@ class Effect;
 
 class Field : public Operator {
 public:
-    Field() { }
+    explicit Field(bool accumulate) : _accumulate(accumulate) { }
     
     void setLocalToGlobal(const Imath::Matrix44<float>& g);
 
@@ -24,12 +24,13 @@ public:
 protected:
     Imath::Matrix44<float> _globalTransform;
     Imath::Matrix44<float> _invGlobalTransform;
+    bool _accumulate;
 };
 
 // sets velocity to a value when a body enters it
 class VelocityField : public Field {
 public:
-    VelocityField() : _direction(0, 0, 1) { }
+    VelocityField(bool acc) : Field(acc), _direction(0, 0, 1) { }
     virtual ~VelocityField() { }
     
     virtual void update(float t, float dt) override;
@@ -43,7 +44,8 @@ private:
 
 class AccelerationField : public Field {
 public:
-    explicit AccelerationField(std::weak_ptr<DataStripes> s) : _stripes(s), _direction(0, 0, 1) { }
+    explicit AccelerationField(std::weak_ptr<DataStripes> s, bool acc) 
+             : Field(acc), _stripes(s), _direction(0, 0, 1) { }
     virtual ~AccelerationField() { }
     
     void setDirection(float x, float y, float z) {

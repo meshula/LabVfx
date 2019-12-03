@@ -4,7 +4,7 @@
 #include "LabVfx/Integrator.h"
 #include "LabVfx/LifetimeRules.h"
 #include "LabVfx/Looks.h"
-#include "LabVfx/Operators.h"
+#include "LabVfx/Operator.h"
 
 namespace lab { namespace vfx {
     
