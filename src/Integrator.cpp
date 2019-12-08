@@ -9,7 +9,7 @@
 
 namespace lab { namespace vfx {
 
-void Integrator::integrate(float t, float dt, Effect* system) 
+void Integrator::update(float t, float dt) 
 {
     auto stripes = _stripes.lock();
     if (!stripes)
@@ -19,8 +19,8 @@ void Integrator::integrate(float t, float dt, Effect* system)
     if (!count)
         return;
 
-    int stride = _pos->stride() / sizeof(float);
-    int vstride = _vel->stride() / sizeof(float);
+    size_t stride = _pos->stride() / sizeof(float);
+    size_t vstride = _vel->stride() / sizeof(float);
     float* force = _force->data<float>();
     float* pos = _pos->data<float>();
     float* vel = _vel->data<float>();

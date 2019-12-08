@@ -10,17 +10,20 @@ class DataStripe;
 class DataStripes;
 
 class Operator {
+protected:
+    std::weak_ptr<DataStripes> _stripes;
+
 public:
-    Operator() { }
-    virtual ~Operator() { }
+    Operator(std::weak_ptr<DataStripes> s) : _stripes(s) { }
+    virtual ~Operator() = default;
     
     virtual void update(float t, float dt) = 0;
 };
 
 class Zero : public Operator {
 public:
-    explicit Zero(std::weak_ptr<DataStripes> s) : _stripes(s) { }
-    virtual ~Zero() { }
+    explicit Zero() = default;
+    virtual ~Zero() = default;
 
     virtual void update(float t, float dt) override;
 
@@ -28,7 +31,6 @@ public:
 
 private:
     std::shared_ptr<DataStripe> _stripe;
-    std::weak_ptr<DataStripes> _stripes;
 };
 
 }}

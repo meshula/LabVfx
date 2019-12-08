@@ -5,7 +5,7 @@
 #ifndef LABVFX_INTEGRATOR_H
 #define LABVFX_INTEGRATOR_H
 
-#include <memory>
+#include "Operator.h"
 
 namespace lab { namespace vfx {
 
@@ -13,10 +13,12 @@ class DataStripe;
 class DataStripes;
 class Effect;
 
-class Integrator {
+class Integrator : public Operator {
 public:
-    explicit Integrator(std::weak_ptr<DataStripes> s) : _stripes(s) { }
-    void integrate(float t, float dt, Effect* system);
+    explicit Integrator(std::shared_ptr<DataStripes> s) : Operator(s) {}
+    virtual ~Integrator() = default;
+
+    virtual void update(float t, float dt) override;
     
     void setForceIData(std::shared_ptr<DataStripe> force) { _force = force; }
     void setPositionIOData(std::shared_ptr<DataStripe> pos) { _pos = pos; }
@@ -25,7 +27,6 @@ public:
     void setChargeIData(std::shared_ptr<DataStripe> charge) { _charge = charge; }
 
 private:
-    std::weak_ptr<DataStripes> _stripes;
     std::shared_ptr<DataStripe> _force;
     std::shared_ptr<DataStripe> _pos;
     std::shared_ptr<DataStripe> _vel;

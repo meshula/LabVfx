@@ -14,7 +14,8 @@ class Effect;
 
 class Field : public Operator {
 public:
-    explicit Field(bool accumulate) : _accumulate(accumulate) { }
+    explicit Field(std::weak_ptr<DataStripes> s, bool accumulate) 
+        : Operator(s), _accumulate(accumulate) { }
     
     void setLocalToGlobal(const Imath::Matrix44<float>& g);
 
@@ -30,7 +31,9 @@ protected:
 // sets velocity to a value when a body enters it
 class VelocityField : public Field {
 public:
-    VelocityField(bool acc) : Field(acc), _direction(0, 0, 1) { }
+    VelocityField(std::weak_ptr<DataStripes> s, bool acc) 
+        : Field(s, acc), _direction(0, 0, 1) { }
+
     virtual ~VelocityField() { }
     
     virtual void update(float t, float dt) override;
@@ -45,7 +48,7 @@ private:
 class AccelerationField : public Field {
 public:
     explicit AccelerationField(std::weak_ptr<DataStripes> s, bool acc) 
-             : Field(acc), _stripes(s), _direction(0, 0, 1) { }
+             : Field(s, acc), _direction(0, 0, 1) { }
     virtual ~AccelerationField() { }
     
     void setDirection(float x, float y, float z) {
@@ -61,7 +64,6 @@ public:
 private:
     Imath::Vec3<float> _direction;
     std::shared_ptr<DataStripe> _force_o_data;
-    std::weak_ptr<DataStripes> _stripes;
 };
 
 //class DragField : public Field {};

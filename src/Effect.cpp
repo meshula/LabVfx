@@ -41,7 +41,7 @@ namespace lab { namespace vfx {
             op->update(t, dt);
 
         for (auto& integrator : _integrators)
-            integrator->integrate(t, dt, this);
+            integrator->update(t, dt);
         
         for (auto& life : _lifeTimeRules)
             life->expire(t, dt);
