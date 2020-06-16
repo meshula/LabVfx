@@ -6,7 +6,7 @@
 #include "Effect.h"
 #include "Emitter.h"
 #include "Field.h"
-#include "Integrator.h"
+#include "ForceIntegrator.h"
 #include "LifetimeRules.h"
 #include "Looks.h"
 #include "Operator.h"

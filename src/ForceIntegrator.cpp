@@ -2,14 +2,14 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#include "LabVfx/Integrator.h"
+#include "LabVfx/ForceIntegrator.h"
 #include "LabVfx/DataStripes.h"
 #include "LabVfx/Effect.h"
 #include "LabVfx/Field.h"
 
 namespace lab { namespace vfx {
 
-void Integrator::update(float t, float dt) 
+void ForceIntegrator::update(float t, float dt) 
 {
     auto stripes = _stripes.lock();
     if (!stripes)

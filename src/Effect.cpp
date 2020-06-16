@@ -1,7 +1,7 @@
 
 #include "LabVfx/Effect.h"
 #include "LabVfx/Emitter.h"
-#include "LabVfx/Integrator.h"
+#include "LabVfx/ForceIntegrator.h"
 #include "LabVfx/LifetimeRules.h"
 #include "LabVfx/Looks.h"
 #include "LabVfx/Operator.h"

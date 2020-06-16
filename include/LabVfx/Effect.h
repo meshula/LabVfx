@@ -22,12 +22,12 @@ namespace lab { namespace vfx
     class Bucket;
     class Emitter;
     class Field;
-    class Integrator;
+    class ForceIntegrator;
     class LifetimeRule;
     class Look;
     class Operator;
 
-    enum EffectRenderStyle
+    enum class EffectRenderStyle
     {
         StyleInvisible,
         StyleStreak,
@@ -76,7 +76,7 @@ namespace lab { namespace vfx
         
         void addOperator(std::shared_ptr<Operator> f) { _operators.push_back(f); }
         void addEmitter(std::shared_ptr<Emitter> e) { _emitters.push_back(e); }
-        void addIntegrator(std::shared_ptr<Integrator> i) { _integrators.push_back(i); }
+        void addIntegrator(std::shared_ptr<ForceIntegrator> i) { _integrators.push_back(i); }
         void addLifetimeRule(std::shared_ptr<LifetimeRule> r) { _lifeTimeRules.push_back(r); }
         void addRespawnEffect(std::shared_ptr<Effect> p) { _respawns.push_back(p); }
         void addLook(std::shared_ptr<Look> l) { _looks.push_back(l); }
@@ -85,7 +85,7 @@ private:
         std::shared_ptr<DataStripes>               _dataStripes;
         std::vector<std::shared_ptr<Operator>>     _operators;
         std::vector<std::shared_ptr<Emitter>>      _emitters;
-        std::vector<std::shared_ptr<Integrator>>   _integrators;
+        std::vector<std::shared_ptr<ForceIntegrator>>   _integrators;
         std::vector<std::shared_ptr<LifetimeRule>> _lifeTimeRules;
         std::vector<std::shared_ptr<Effect>>       _respawns;
         std::vector<std::shared_ptr<Look>>         _looks;

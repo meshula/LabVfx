@@ -2,8 +2,8 @@
 // Copyright (c) 2003-2013 Nick Porcino, All rights reserved.
 // License is MIT: http://opensource.org/licenses/MIT
 
-#ifndef LABVFX_INTEGRATOR_H
-#define LABVFX_INTEGRATOR_H
+#ifndef LABVFX_FORCEINTEGRATOR_H
+#define LABVFX_FORCEINTEGRATOR_H
 
 #include "Operator.h"
 
@@ -13,10 +13,10 @@ class DataStripe;
 class DataStripes;
 class Effect;
 
-class Integrator : public Operator {
+class ForceIntegrator : public Operator {
 public:
-    explicit Integrator(std::shared_ptr<DataStripes> s) : Operator(s) {}
-    virtual ~Integrator() = default;
+    explicit ForceIntegrator(std::shared_ptr<DataStripes> s) : Operator(s) {}
+    virtual ~ForceIntegrator() = default;
 
     virtual void update(float t, float dt) override;
     

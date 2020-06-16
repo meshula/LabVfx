@@ -53,7 +53,7 @@ lab_library(LabVfx
         include/LabVfx/Effect.h
         include/LabVfx/Emitter.h
         include/LabVfx/Field.h
-        include/LabVfx/Integrator.h
+        include/LabVfx/ForceIntegrator.h
         include/LabVfx/LifetimeRules.h
         include/LabVfx/Looks.h
         include/LabVfx/Operator.h
@@ -68,7 +68,7 @@ lab_library(LabVfx
         src/Effect.cpp
         src/Emitter.cpp
         src/Field.cpp
-        src/Integrator.cpp
+        src/ForceIntegrator.cpp
         src/LifetimeRules.cpp
         src/Looks.cpp
         src/Operator.cpp
